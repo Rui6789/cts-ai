@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  "name": "cts-ai",
+
+  "main": "src/index.ts",
+
+  "compatibility_date": "2026-09-16",
+
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "cts-ai-data",
+      "database_id": "a82d1394-0d00-4bfa-a014-35801ac6475e"
+    }
+  ]
+}
