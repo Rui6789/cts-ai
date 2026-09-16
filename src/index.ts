@@ -530,6 +530,27 @@ export default {
       );
     }
 
-    return env.ASSETS.fetch(request);
+    const assetResponse = await env.ASSETS.fetch(request);
+
+    if (
+      (url.pathname === "/" || url.pathname === "/index.html") &&
+      assetResponse.headers.get("Content-Type")?.includes("text/html")
+    ) {
+      const html = await assetResponse.text();
+      const headers = new Headers(assetResponse.headers);
+      headers.delete("Content-Length");
+
+      return new Response(
+        html
+          .replace("沉淀高频可复用的 Skill", "沉淀高频可复用的 Skills")
+          .replace("持续复用的 Skill。", "持续复用的 Skills。"),
+        {
+          status: assetResponse.status,
+          headers
+        }
+      );
+    }
+
+    return assetResponse;
   }
 };
